@@ -1,0 +1,162 @@
+body.timer{
+    background: #ffffff;
+}
+
+body.timer #header,
+body.timer #sidebar{
+    background: #ffffff;
+}
+
+body.timer #container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-height: calc(100vh - 82px);
+    padding: 14px 18px 22px;
+    background: #ffffff;
+}
+
+body.timer #container > .scramble,
+body.timer #container > .timer,
+body.timer #container > .average{
+    width: min(100%, 1000px);
+}
+
+body.timer #container > .scramble{
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    color: #000000;
+    font-size: clamp(1.05rem, 1.7vw, 1.65rem);
+    line-height: 1.4;
+    text-align: center;
+    letter-spacing: 0.06em;
+}
+
+body.timer #container > .timer{
+    min-height: 260px;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: clamp(4rem, 10vw, 7rem);
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+body.timer .instruction{
+    color: #555555;
+    font-size: 0.86rem;
+    text-align: center;
+}
+
+body.timer .timer-sync{
+    min-height: 24px;
+    color: #2563eb;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+body.timer .timer-sync.is-error{
+    color: #b91c1c;
+}
+
+body.timer .button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+body.timer .button .btn{
+    min-width: 82px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid #bfc7d1;
+    border-radius: 6px;
+    background: #f5f5f5;
+    color: #111111;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+body.timer .button .btn:hover{
+    background: #ebebeb;
+}
+
+body.timer .button .btn:focus-visible{
+    outline: 2px solid #7aa2ff;
+    outline-offset: 2px;
+}
+
+body.timer .average{
+    text-align: center;
+    color: #1737ff;
+    font-size: clamp(1.35rem, 3vw, 2.2rem);
+    line-height: 1.18;
+}
+
+body.timer .average > div{
+    margin: 0;
+}
+
+body.timer .average span{
+    font-weight: 400;
+}
+body.timer .bestTimer{
+    text-align: center;
+    color: #ff1764;
+    font-size: clamp(1.35rem, 3vw, 2.2rem);
+    line-height: 1.18;
+}
+
+@media (max-width: 1080px){
+    body.timer #container{
+        min-height: auto;
+    }
+
+    body.timer #container > .timer{
+        min-height: 220px;
+    }
+}
+
+@media (max-width: 640px){
+    body.timer #container{
+        padding: 10px 10px 20px;
+        gap: 8px;
+    }
+
+    body.timer #container > .scramble{
+        padding: 4px 6px;
+        font-size: 0.92rem;
+        letter-spacing: 0.04em;
+    }
+
+    body.timer #container > .timer{
+        min-height: 170px;
+        padding: 4px 6px;
+        font-size: clamp(2.5rem, 14vw, 4.4rem);
+    }
+
+    body.timer .instruction{
+        font-size: 0.8rem;
+    }
+
+    body.timer .button .btn{
+        min-width: 72px;
+        height: 28px;
+        padding: 0 8px;
+        font-size: 0.78rem;
+    }
+
+    body.timer .average{
+        font-size: clamp(1.15rem, 7vw, 1.8rem);
+    }
+}

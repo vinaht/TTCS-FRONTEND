@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kí hiệu Rubik | CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/notations.css">
+</head>
+<body class="nt">
+    <div id="main">
+        <header id="header">
+            <div class="header-brand">
+                <a class="fa-solid fa-house" href="./index.html"></a>
+                <div class="brand-text">
+                    <h1>CubeAL</h1>
+                </div>
+            </div>
+
+            <form class="header-search" role="search">
+                <label class="sr-only" for="nt-search">Tìm kiếm kí hiệu Rubik</label>
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input
+                    id="nt-search"
+                    class="search-input"
+                    type="search"
+                    name="search"
+                    placeholder="Tìm kiếm kí hiệu, công thức, bài học..."
+                >
+            </form>
+
+            <nav class="header-actions" data-auth-nav aria-label="Tài khoản">
+                <a class="header-link" href="./login.html">Đăng nhập</a>
+                <a class="header-btn" href="./register.html">Đăng ký</a>
+            </nav>
+        </header>
+
+        <aside id="sidebar">
+            <nav class="sidebar-menu" aria-label="Điều hướng chính">
+                <a class="sidebar-item" href="./index.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a class="sidebar-item sidebar-item--active" href="./notations.html">
+                    <i class="fa-solid fa-signs-post"></i>
+                    <span>Kí hiệu</span>
+                </a>
+
+                <a class="sidebar-item" href="./timer.html">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <span>Timer</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main id="container">
+            <div class="nt-wrap">
+                <section class="nt-part">
+                    <div class="nt-bar">
+                        <h3>Kí hiệu cơ bản</h3>
+                        <p>Nhóm cơ bản gồm các tầng, mặt và cạnh thường gặp nhất khi học công thức Rubik.</p>
+                    </div>
+
+                    <section class="nt-sec">
+                        <h4>Tầng trên - U</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/Tầng U.png" alt="Tầng U" loading="lazy">
+                                </div>
+                                <p>Tầng U</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/U.png" alt="Kí hiệu U" loading="lazy">
+                                </div>
+                                <p>U</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/U'.png" alt="Kí hiệu U ngược" loading="lazy">
+                                </div>
+                                <p>U'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Tầng dưới - D</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/Tầng D.png" alt="Tầng D" loading="lazy">
+                                </div>
+                                <p>Tầng D</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/D.png" alt="Kí hiệu D" loading="lazy">
+                                </div>
+                                <p>D</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/D'.png" alt="Kí hiệu D ngược" loading="lazy">
+                                </div>
+                                <p>D'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Mặt trước - F</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/Mặt F.png" alt="Mặt F" loading="lazy">
+                                </div>
+                                <p>Mặt F</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/F.png" alt="Kí hiệu F" loading="lazy">
+                                </div>
+                                <p>F</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/F'.png" alt="Kí hiệu F ngược" loading="lazy">
+                                </div>
+                                <p>F'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Mặt sau - B</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/Mặt B.png" alt="Mặt B" loading="lazy">
+                                </div>
+                                <p>Mặt B</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/B.png" alt="Kí hiệu B" loading="lazy">
+                                </div>
+                                <p>B</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/B'.png" alt="Kí hiệu B ngược" loading="lazy">
+                                </div>
+                                <p>B'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Cạnh phải - R</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/Cạnh R.png" alt="Cạnh R" loading="lazy">
+                                </div>
+                                <p>Cạnh R</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/R.png" alt="Kí hiệu R" loading="lazy">
+                                </div>
+                                <p>R</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/R'.png" alt="Kí hiệu R ngược" loading="lazy">
+                                </div>
+                                <p>R'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Cạnh trái - L</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/Cạnh L.png" alt="Cạnh L" loading="lazy">
+                                </div>
+                                <p>Cạnh L</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/L.png" alt="Kí hiệu L" loading="lazy">
+                                </div>
+                                <p>L</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/L'.png" alt="Kí hiệu L ngược" loading="lazy">
+                                </div>
+                                <p>L'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Cạnh giữa - M</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/cạnh M.png" alt="Cạnh M" loading="lazy">
+                                </div>
+                                <p>Cạnh M</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/M.png" alt="Kí hiệu M" loading="lazy">
+                                </div>
+                                <p>M</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/M'.png" alt="Kí hiệu M ngược" loading="lazy">
+                                </div>
+                                <p>M'</p>
+                            </article>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="nt-part">
+                    <div class="nt-bar">
+                        <h3>Kí hiệu nâng cao</h3>
+                        <p>Các kí hiệu chữ thường là wide move, tức xoay cùng lúc hai lớp. Mỗi hàng dưới đây gồm ảnh nhận diện, chiều xoay thuận và chiều xoay ngược.</p>
+                    </div>
+
+                    <section class="nt-sec">
+                        <h4>Tầng trên rộng - u</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/u nhỏ.png" alt="Kí hiệu u nhỏ" loading="lazy">
+                                </div>
+                                <p>u nhỏ</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay u nhỏ.png" alt="Kí hiệu u" loading="lazy">
+                                </div>
+                                <p>u</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay u' nhỏ.png" alt="Kí hiệu u ngược" loading="lazy">
+                                </div>
+                                <p>u'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Tầng dưới rộng - d</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/d nhỏ.png" alt="Kí hiệu d nhỏ" loading="lazy">
+                                </div>
+                                <p>d nhỏ</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay d nhỏ.png" alt="Kí hiệu d" loading="lazy">
+                                </div>
+                                <p>d</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay d' nhỏ.png" alt="Kí hiệu d ngược" loading="lazy">
+                                </div>
+                                <p>d'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Mặt trước rộng - f</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/f nhỏ.png" alt="Kí hiệu f nhỏ" loading="lazy">
+                                </div>
+                                <p>f nhỏ</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay f nhỏ.png" alt="Kí hiệu f" loading="lazy">
+                                </div>
+                                <p>f</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay f' nhỏ.png" alt="Kí hiệu f ngược" loading="lazy">
+                                </div>
+                                <p>f'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Mặt sau rộng - b</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/b nhỏ.png" alt="Kí hiệu b nhỏ" loading="lazy">
+                                </div>
+                                <p>b nhỏ</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay b nhỏ.png" alt="Kí hiệu b" loading="lazy">
+                                </div>
+                                <p>b</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay b' nhỏ.png" alt="Kí hiệu b ngược" loading="lazy">
+                                </div>
+                                <p>b'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Cạnh phải rộng - r</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/r nhỏ.png" alt="Kí hiệu r nhỏ" loading="lazy">
+                                </div>
+                                <p>r nhỏ</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay r nhỏ.png" alt="Kí hiệu r" loading="lazy">
+                                </div>
+                                <p>r</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay r' nhỏ.png" alt="Kí hiệu r ngược" loading="lazy">
+                                </div>
+                                <p>r'</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="nt-sec">
+                        <h4>Cạnh trái rộng - l</h4>
+                        <div class="nt-grid">
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/l nhỏ.png" alt="Kí hiệu l nhỏ" loading="lazy">
+                                </div>
+                                <p>l nhỏ</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay l nhỏ.png" alt="Kí hiệu l" loading="lazy">
+                                </div>
+                                <p>l</p>
+                            </article>
+
+                            <article class="nt-card">
+                                <div class="nt-pic">
+                                    <img src="./assets/image/notations/xoay l' nhỏ.png" alt="Kí hiệu l ngược" loading="lazy">
+                                </div>
+                                <p>l'</p>
+                            </article>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <a class="to-top" href="#main" aria-label="Lên đầu trang">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

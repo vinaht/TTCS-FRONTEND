@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký | CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/auth.css">
+</head>
+<body class="auth-page">
+    <div class="auth-shell">
+        <header class="auth-top">
+            <a class="auth-brand" href="./index.html">
+                <span class="auth-brand__icon">
+                    <i class="fa-solid fa-cube"></i>
+                </span>
+                <span class="auth-brand__text">
+                    <strong>CubeAL</strong>
+                </span>
+            </a>
+        </header>
+
+        <main class="auth-main">
+            <section class="auth-card">
+                <div class="auth-card__head">
+                    <h2>Đăng ký</h2>
+                    <p>Tạo tài khoản mới để bắt đầu sử dụng CubeAL.</p>
+                </div>
+
+                <form id="register-form" class="auth-form" novalidate>
+                    <label class="auth-field">
+                        <span>Username</span>
+                        <input type="text" name="username" placeholder="cubelearner" required minlength="3" maxlength="50">
+                    </label>
+
+                    <label class="auth-field">
+                        <span>Email</span>
+                        <input type="email" name="email" placeholder="email@cubeal.com" required>
+                    </label>
+
+                    <label class="auth-field">
+                        <span>Mật khẩu</span>
+                        <input type="password" name="password" placeholder="Tối thiểu 6 ký tự" required minlength="6">
+                    </label>
+
+                    <label class="auth-field">
+                        <span>Xác nhận mật khẩu</span>
+                        <input type="password" name="confirmPassword" placeholder="Nhập lại mật khẩu" required minlength="6">
+                    </label>
+
+                    <p class="auth-msg" data-auth-message aria-live="polite" hidden></p>
+
+                    <button class="auth-submit" type="submit">Tạo tài khoản</button>
+                </form>
+
+                <p class="auth-switch">Đã có tài khoản? <a href="./login.html">Đăng nhập ngay</a></p>
+            </section>
+        </main>
+    </div>
+
+    <script src="./js/auth.js"></script>
+</body>
+</html>

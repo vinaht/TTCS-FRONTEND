@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="main">
+        <header id="header">
+            <div class="header-brand">
+                <a class="fa-solid fa-house" href="./index.html"></a>
+                <div class="brand-text">
+                    <h1>CubeAL</h1>
+                </div>
+            </div>
+
+            <form class="header-search" role="search">
+                <label class="sr-only" for="course-search">Tìm kiếm khóa học</label>
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input
+                    id="course-search"
+                    class="search-input"
+                    type="search"
+                    name="search"
+                    placeholder="Tìm kiếm khóa học, bài học, tài liệu..."
+                >
+            </form>
+
+            <nav class="header-actions" data-auth-nav aria-label="Tài khoản">
+                <a class="header-link" href="./login.html">Đăng nhập</a>
+                <a class="header-btn" href="./register.html">Đăng ký</a>
+            </nav>
+        </header>
+
+        <aside id="sidebar">
+            <nav class="sidebar-menu" aria-label="Điều hướng chính">
+                <a class="sidebar-item sidebar-item--active" href="./index.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a class="sidebar-item" href="./timer.html">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <span>Timer</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main id="container">
+            <section class="hero-image">
+                <img src="./assets/image/homepageimg.png" alt="CubeAL homepage banner">
+            </section>
+
+            <section class="feature-section">
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-signs-post"></i>
+                        </div>
+                        <h4>Hướng dẫn kí hiệu</h4>
+                        <p>Giải thích các kí hiệu cơ bản để người mới đọc và hiểu các bước xoay.</p>
+                        <a href="./notations.html">Xem chi tiết</a>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h4>Khoá Beginner</h4>
+                        <p>Lộ trình cho người mới bắt đầu, học theo từng tầng và dễ theo dõi.</p>
+                        <a href="#">Vào khóa học</a>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h4>Khoá CFOP</h4>
+                        <p>Dành cho người muốn nâng tốc độ với F2L, OLL, PLL và tối ưu finger trick.</p>
+                        <a href="#">Khám phá CFOP</a>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <a class="to-top" href="#main" aria-label="Lên đầu trang">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

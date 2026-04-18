@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer | CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/timer.css">
+</head>
+<body class="timer">
+    <div id="main">
+        <header id="header">
+            <div class="header-brand">
+                <a class="fa-solid fa-house" href="./index.html"></a>
+                <div class="brand-text">
+                    <h1>CubeAL</h1>
+                </div>
+            </div>
+
+            <form class="header-search" role="search">
+                <label class="sr-only" for="timer-search">Tim kiem muc timer</label>
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input
+                    id="timer-search"
+                    class="search-input"
+                    type="search"
+                    name="search"
+                    placeholder="Tim kiem session, scramble, thong ke..."
+                >
+            </form>
+
+            <nav class="header-actions" data-auth-nav aria-label="Tai khoan">
+                <a class="header-link" href="./login.html">Dang nhap</a>
+                <a class="header-btn" href="./register.html">Dang ky</a>
+            </nav>
+        </header>
+
+        <aside id="sidebar">
+            <nav class="sidebar-menu" aria-label="Dieu huong chinh">
+                <a class="sidebar-item" href="./index.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a class="sidebar-item sidebar-item--active" href="./timer.html">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <span>Timer</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main id="container">
+            <div class="scramble" id = "scramble"></div>
+            <div class="timer" id="timer">0.00s</div>
+            <div class="instruction">Press spacebar to start and stop the button</div>
+            <p class="timer-sync" id="timer-sync">Dang o che do khach. Ket qua se luu tren trinh duyet nay.</p>
+            <div class="button">
+                <button class="btn" id = "startstop">StartStop</button>
+                <button class="btn" id = "reset">Reset</button>
+            </div>
+            <div class="bestTimer">Best time: <span id="bestTimeValue">N/A</span></div>
+            <div class="average">   
+                <div>Average of 5: <span id="avg5">N/A</span></div>
+                <div>Average of 12: <span id="avg12">N/A</span></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/timer.js"></script>
+</body>
+</html>

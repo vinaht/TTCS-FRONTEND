@@ -13,15 +13,12 @@
     };
 
     const elements = {
-        searchForm: document.getElementById("course-search-form"),
-        search: document.getElementById("course-search"),
         tabs: document.getElementById("course-tabs"),
         stageKicker: document.getElementById("stage-kicker"),
         stageTitle: document.getElementById("stage-title"),
         stageCount: document.getElementById("stage-count"),
         mediaCount: document.getElementById("media-count"),
         filter: document.getElementById("course-filter"),
-        categoryFilter: document.getElementById("category-filter"),
         difficultyFilter: document.getElementById("difficulty-filter"),
         mediaFilter: document.getElementById("media-filter"),
         clearFilters: document.getElementById("filter-clear"),
@@ -120,26 +117,6 @@
         }
 
         return true;
-    }
-
-    function matchesSearch(item, searchValue) {
-        if (!searchValue) {
-            return true;
-        }
-
-        const searchable = [
-            item.name,
-            item.category,
-            item.caseCode,
-            item.formula,
-            item.description,
-            item.difficulty
-        ]
-            .filter(Boolean)
-            .join(" ")
-            .toLowerCase();
-
-        return searchable.includes(searchValue);
     }
 
     function createMeta(values) {
@@ -253,46 +230,16 @@
         );
     }
 
-    function replaceCategoryOptions() {
-        const previousValue = elements.categoryFilter.value;
-        const categories = [...new Set(state.items.map((item) => item.category).filter(Boolean))]
-            .sort((a, b) => a.localeCompare(b));
-
-        elements.categoryFilter.replaceChildren();
-
-        const allOption = document.createElement("option");
-        allOption.value = "";
-        allOption.textContent = "Tất cả";
-        elements.categoryFilter.append(allOption);
-
-        categories.forEach((category) => {
-            const option = document.createElement("option");
-            option.value = category;
-            option.textContent = category;
-            elements.categoryFilter.append(option);
-        });
-
-        if (categories.includes(previousValue)) {
-            elements.categoryFilter.value = previousValue;
-        }
-    }
-
     function getFilteredItems() {
-        const searchValue = elements.search.value.trim().toLowerCase();
-        const category = elements.categoryFilter.value;
         const difficulty = elements.difficultyFilter.value;
         const mediaType = elements.mediaFilter.value;
 
         return state.items.filter((item) => {
-            if (category && item.category !== category) {
-                return false;
-            }
-
             if (difficulty && item.difficulty !== difficulty) {
                 return false;
             }
 
-            return hasMedia(item, mediaType) && matchesSearch(item, searchValue);
+            return hasMedia(item, mediaType);
         });
     }
 
@@ -414,7 +361,6 @@
 
         try {
             state.items = await fetchAllAlgorithms(params);
-            replaceCategoryOptions();
             renderAlgorithms();
         } catch (error) {
             state.items = [];
@@ -461,8 +407,6 @@
     }
 
     function clearFilterValues() {
-        elements.search.value = "";
-        elements.categoryFilter.value = "";
         elements.difficultyFilter.value = "";
         elements.mediaFilter.value = "";
     }
@@ -518,12 +462,6 @@
             await loadStage(stage);
         });
 
-        elements.searchForm.addEventListener("submit", (event) => {
-            event.preventDefault();
-            renderAlgorithms();
-        });
-
-        elements.search.addEventListener("input", renderAlgorithms);
         elements.filter.addEventListener("change", renderAlgorithms);
         elements.filter.addEventListener("submit", (event) => {
             event.preventDefault();

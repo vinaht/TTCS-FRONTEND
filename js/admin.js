@@ -13,8 +13,6 @@
         activeUsersMetric: document.getElementById("metric-active-users"),
         inactiveUsersMetric: document.getElementById("metric-inactive-users"),
         totalAlgorithmsMetric: document.getElementById("metric-total-algorithms"),
-        searchForm: document.getElementById("admin-search-form"),
-        search: document.getElementById("admin-search"),
         form: document.getElementById("algorithm-form"),
         formTitle: document.getElementById("form-title"),
         id: document.getElementById("algorithm-id"),
@@ -400,12 +398,6 @@
         const params = new URLSearchParams({
             course: COURSE
         });
-        const search = elements.search.value.trim();
-
-        if (search) {
-            params.set("search", search);
-        }
-
         if (elements.filterStage.value) {
             params.set("stage", elements.filterStage.value);
         }
@@ -640,11 +632,6 @@
             elements.imageFile.value = "";
             elements.imageUrl.value = "";
             showImagePreview("");
-        });
-
-        elements.searchForm.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            await loadAlgorithms();
         });
 
         elements.filter.addEventListener("submit", async (event) => {

@@ -1,6 +1,52 @@
 (function () {
     const API_BASE_URL = window.CUBEAL_API_BASE_URL || "http://localhost:5000/api";
     const API_ORIGIN = new URL(API_BASE_URL, window.location.href).origin;
+    const sidebarItems = {
+        home: {
+            href: "./index.html",
+            icon: "fa-house",
+            label: "Trang chủ"
+        },
+        timer: {
+            href: "./timer.html",
+            icon: "fa-stopwatch",
+            label: "Timer"
+        },
+        user: {
+            href: "./user.html",
+            icon: "fa-user",
+            label: "Người dùng"
+        },
+        notations: {
+            href: "./notations.html",
+            icon: "fa-signs-post",
+            label: "Kí hiệu"
+        },
+        beginner: {
+            href: "./beginner.html",
+            icon: "fa-seedling",
+            label: "Beginner"
+        },
+        cfop: {
+            href: "./cfop.html",
+            icon: "fa-bolt",
+            label: "CFOP"
+        },
+        admin: {
+            href: "./admin.html",
+            icon: "fa-screwdriver-wrench",
+            label: "Admin"
+        }
+    };
+    const sidebarPageMap = {
+        "index.html": "home",
+        "timer.html": "timer",
+        "user.html": "user",
+        "notations.html": "notations",
+        "beginner.html": "beginner",
+        "cfop.html": "cfop",
+        "admin.html": "admin"
+    };
 
     const courseConfigs = {
         cfop: {
@@ -96,6 +142,52 @@
         }
     }
 
+    function getCurrentPageName() {
+        const pathName = window.location.pathname || "";
+        const fileName = pathName.split("/").pop();
+        return (fileName || "index.html").toLowerCase();
+    }
+
+    function renderSidebar() {
+        const sidebarMenu = document.querySelector("#sidebar .sidebar-menu");
+
+        if (!sidebarMenu) {
+            return;
+        }
+
+        const currentPageName = getCurrentPageName();
+        const currentPage = sidebarPageMap[currentPageName];
+
+        if (!currentPage) {
+            return;
+        }
+
+        const itemOrder = ["home"];
+
+        if (!["home", "timer", "user"].includes(currentPage)) {
+            itemOrder.push(currentPage);
+        }
+
+        itemOrder.push("timer", "user");
+
+        sidebarMenu.innerHTML = itemOrder
+            .map((itemKey) => {
+                const item = sidebarItems[itemKey];
+                const activeClass = itemKey === currentPage ? " sidebar-item--active" : "";
+                const currentAttribute = itemKey === currentPage ? ' aria-current="page"' : "";
+
+                return `
+                    <a class="sidebar-item${activeClass}" href="${item.href}"${currentAttribute}>
+                        <i class="fa-solid ${item.icon}"></i>
+                        <span>${item.label}</span>
+                    </a>
+                `;
+            })
+            .join("");
+    }
+
+    renderSidebar();
+
     window.CubeALShared = {
         API_BASE_URL,
         API_ORIGIN,
@@ -104,6 +196,7 @@
         getCourseConfig,
         getMediaUrl,
         getStageLabel,
+        renderSidebar,
         replaceOptions,
         setStatus
     };

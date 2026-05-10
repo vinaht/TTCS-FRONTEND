@@ -118,13 +118,16 @@ body.algorithm-page .sr-only{
 }
 
 .course-filter{
-    display: grid;
-    grid-template-columns: repeat(3, minmax(120px, 1fr)) auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 10px;
     align-items: end;
 }
 
 .course-filter label{
+    flex: 1 1 170px;
+    min-width: 150px;
     display: grid;
     gap: 7px;
     color: #374151;
@@ -162,6 +165,7 @@ body.algorithm-page .sr-only{
 }
 
 .course-clear{
+    flex: 0 0 auto;
     min-height: 42px;
     padding: 0 14px;
     background: #e5e7eb;
@@ -443,7 +447,13 @@ body.has-course-modal{
     }
 
     .course-filter{
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .course-filter label,
+    .course-clear{
+        width: 100%;
     }
 
     .algorithm-grid{

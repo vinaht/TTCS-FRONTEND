@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner | CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/beginner.css">
+</head>
+<body class="beginner-page">
+    <div id="main">
+        <header id="header">
+            <div class="header-brand">
+                <a class="fa-solid fa-house" href="./index.html"></a>
+                <div class="brand-text">
+                    <h1>CubeAL</h1>
+                </div>
+            </div>
+
+            <form class="header-search" role="search">
+                <label class="sr-only" for="beginner-search">Tìm kiếm bài học Beginner</label>
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input
+                    id="beginner-search"
+                    class="search-input"
+                    type="search"
+                    name="search"
+                    placeholder="Tìm kiếm bài học, công thức, bước giải..."
+                >
+            </form>
+
+            <nav class="header-actions" data-auth-nav aria-label="Tài khoản">
+                <a class="header-link" href="./login.html">Đăng nhập</a>
+                <a class="header-btn" href="./register.html">Đăng ký</a>
+            </nav>
+        </header>
+
+        <aside id="sidebar">
+            <nav class="sidebar-menu" aria-label="Điều hướng chính">
+                <a class="sidebar-item" href="./index.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a class="sidebar-item sidebar-item--active" href="./beginner.html">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>Beginner</span>
+                </a>
+
+                <a class="sidebar-item" href="./cfop.html">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>CFOP</span>
+                </a>
+
+                <a class="sidebar-item" href="./notations.html">
+                    <i class="fa-solid fa-signs-post"></i>
+                    <span>Kí hiệu</span>
+                </a>
+
+                <a class="sidebar-item" href="./timer.html">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <span>Timer</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main id="container">
+            <div class="beginner-wrap">
+                <section class="beginner-hero">
+                    <div class="beginner-hero-copy">
+                        <p class="beginner-kicker">Khóa Beginner</p>
+                        <h2>Giải Rubik 3x3 cho người mới</h2>
+                        <p>Học cách giải Rubik 3x3 từng bước một, từ nhận diện màu sắc đến áp dụng công thức đơn giản dành cho người mới bắt đầu.</p>
+                    </div>
+
+                    <div class="beginner-hero-media">
+                        <img src="./assets/image/Beginner/cross.png" alt="Minh họa khối Rubik cho khóa Beginner">
+                    </div>
+                </section>
+
+                <section class="beginner-step" id="dau-cong">
+                    <div class="beginner-step-head">
+                        <span class="beginner-step-number">01</span>
+                        <div>
+                            <p class="beginner-kicker">Bước 1</p>
+                            <h3>Dấu cộng trắng</h3>
+                            <p>Đưa bốn viên cạnh trắng về đúng quanh tâm trắng, đồng thời màu bên cạnh khớp với tâm mỗi mặt.</p>
+                        </div>
+                    </div>
+
+                    <div class="beginner-step-body">
+                        <div class="beginner-gallery beginner-gallery--wide">
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/cross.png" alt="Dấu cộng trắng hoàn chỉnh" loading="lazy">
+                                </div>
+                                <p>Dấu cộng hoàn chỉnh</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/đảo cạnh kề dấu cộng trắng.png" alt="Đảo cạnh kề dấu cộng trắng" loading="lazy">
+                                </div>
+                                <p>Đảo cạnh kề</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/đảo cạnh đối dấu cộng trắng.png" alt="Đảo cạnh đối dấu cộng trắng" loading="lazy">
+                                </div>
+                                <p>Đảo cạnh đối</p>
+                            </article>
+                        </div>
+
+                        <div class="beginner-formulas">
+                            <h4>Công thức cần nhớ</h4>
+                            
+                            <div class="beginner-variants">
+                                <span>Biến thể đảo cạnh kề: R' U' R U R'</span>
+                                <span>Biến thể đảo cạnh đối: M2 D2 M2</span>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="beginner-step" id="tang-1">
+                    <div class="beginner-step-head">
+                        <span class="beginner-step-number">02</span>
+                        <div>
+                            <p class="beginner-kicker">Bước 2</p>
+                            <h3>Hoàn thành tầng 1</h3>
+                            <p>Chèn bốn viên góc trắng vào đúng vị trí để hoàn thành toàn bộ tầng đầu tiên.</p>
+                        </div>
+                    </div>
+
+                    <div class="beginner-step-body">
+                        <div class="beginner-gallery">
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/tầng 1.png" alt="Tầng 1 đã hoàn thành" loading="lazy">
+                                </div>
+                                <p>Tầng 1 hoàn chỉnh</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/góc.png" alt="Góc trắng ở tầng trên" loading="lazy">
+                                </div>
+                                <p>Góc ở tầng trên</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/góc 2.png" alt="Góc trắng cần xoay về đúng hướng" loading="lazy">
+                                </div>
+                                <p>Góc cần chỉnh hướng</p>
+                            </article>
+                        </div>
+
+                        <div class="beginner-formulas">
+                            <h4>Công thức cần nhớ</h4>
+                            <div class="beginner-formula-main">R U R'</div>
+                            <div class="beginner-variants">
+                                <span>Góc bên trái: L' U' L</span>
+                                <span>Lặp lại đến khi mặt trắng quay xuống</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="beginner-step" id="tang-2">
+                    <div class="beginner-step-head">
+                        <span class="beginner-step-number">03</span>
+                        <div>
+                            <p class="beginner-kicker">Bước 3</p>
+                            <h3>Hoàn thành tầng 2</h3>
+                            <p>Tìm cạnh không có màu vàng ở tầng trên, căn màu mặt trước rồi đưa cạnh vào khe trái hoặc phải.</p>
+                        </div>
+                    </div>
+
+                    <div class="beginner-step-body">
+                        <div class="beginner-gallery beginner-gallery--wide">
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/tầng 2.png" alt="Tầng 2 đã hoàn thành" loading="lazy">
+                                </div>
+                                <p>Tầng 2 hoàn chỉnh</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/tầng 2 - 1.png" alt="Đưa cạnh tầng 2 sang phải" loading="lazy">
+                                </div>
+                                <p>Đưa cạnh sang phải</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/tầng 2 - 2.png" alt="Đưa cạnh tầng 2 sang trái" loading="lazy">
+                                </div>
+                                <p>Đưa cạnh sang trái</p>
+                            </article>
+                        </div>
+
+                        <div class="beginner-formulas">
+                            <h4>Công thức cần nhớ</h4>
+                            <div class="beginner-formula-main">U R U' R' U' F' U F</div>
+                            <div class="beginner-variants">
+                                <span>Sang trái: U' L' U L U F U' F'</span>
+                                <span>Đưa cạnh sai ra ngoài rồi chèn lại</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="beginner-step" id="dau-cong-vang">
+                    <div class="beginner-step-head">
+                        <span class="beginner-step-number">04</span>
+                        <div>
+                            <p class="beginner-kicker">Bước 4</p>
+                            <h3>Tạo dấu cộng vàng</h3>
+                            <p>Xoay mặt vàng lên trên, dùng cùng một công thức để chuyển từ chấm, chữ L hoặc đường thẳng thành dấu cộng vàng.</p>
+                        </div>
+                    </div>
+
+                    <div class="beginner-step-body">
+                        <div class="beginner-gallery">
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/mặt vàng 1.png" alt="Trường hợp chữ L vàng" loading="lazy">
+                                </div>
+                                <p>Trường hợp chữ L</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/mặt vàng 2.png" alt="Trường hợp đường thẳng vàng" loading="lazy">
+                                </div>
+                                <p>Trường hợp đường thẳng</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/mặt vàng.png" alt="Dấu cộng vàng hoàn chỉnh" loading="lazy">
+                                </div>
+                                <p>Dấu cộng vàng</p>
+                            </article>
+                        </div>
+
+                        <div class="beginner-formulas">
+                            <h4>Công thức cần nhớ</h4>
+                            <div class="beginner-formula-main">F R U R' U' F'</div>
+                            <div class="beginner-variants">
+                                <span>Chữ L: đặt góc vàng ở trái-trước</span>
+                                <span>Đường thẳng: đặt nằm ngang rồi xoay công thức</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="beginner-step" id="mat-vang">
+                    <div class="beginner-step-head">
+                        <span class="beginner-step-number">05</span>
+                        <div>
+                            <p class="beginner-kicker">Bước 5</p>
+                            <h3>Hoàn thành mặt vàng</h3>
+                            <p>Giữ dấu cộng vàng, xoay các góc vàng để toàn bộ mặt trên cùng màu.</p>
+                        </div>
+                    </div>
+
+                    <div class="beginner-step-body">
+                        <div class="beginner-gallery">
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/hoàn thành 1.png" alt="Mặt vàng hoàn chỉnh" loading="lazy">
+                                </div>
+                                <p>Mặt vàng hoàn chỉnh</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/mặt vàng thường.png" alt="Mặt vàng thường" loading="lazy">
+                                </div>
+                                <p>Mặt vàng thường</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/Mặt vàng bản biến thể.png" alt="Mặt vàng biến thể" loading="lazy">
+                                </div>
+                                <p>Mặt vàng biến thể</p>
+                            </article>
+                        </div>
+
+                        <div class="beginner-formulas">
+                            <h4>Công thức cần nhớ</h4>
+                            <div class="beginner-formula-main">R U R' U R U2 R'</div>
+                            <div class="beginner-variants">
+                                <span>Biến thể ngược: L' U' L U' L' U2 L</span>
+                                <span>Xoay U để đưa trường hợp tiếp theo vào vị trí</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="beginner-step" id="hoan-thanh">
+                    <div class="beginner-step-head">
+                        <span class="beginner-step-number">06</span>
+                        <div>
+                            <p class="beginner-kicker">Bước 6</p>
+                            <h3>Hoàn thành khối</h3>
+                            <p>Hoán vị góc và cạnh ở tầng cuối để đưa tất cả mặt bên về đúng màu.</p>
+                        </div>
+                    </div>
+
+                    <div class="beginner-step-body">
+                        <div class="beginner-gallery beginner-gallery--wide">
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/hoàn thành 1.png" alt="Hoán vị góc tầng cuối" loading="lazy">
+                                </div>
+                                <p>Đổi vị trí góc</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/hoàn thành 2.png" alt="Hoán vị cạnh tầng cuối" loading="lazy">
+                                </div>
+                                <p>Đổi vị trí cạnh</p>
+                            </article>
+
+                            <article class="beginner-card">
+                                <div class="beginner-pic">
+                                    <img src="./assets/image/Beginner/hoàn thành 3.png" alt="Khối Rubik đã hoàn thành" loading="lazy">
+                                </div>
+                                <p>Rubik hoàn thành</p>
+                            </article>
+                        </div>
+
+                        <div class="beginner-formulas">
+                            <h4>Công thức cần nhớ</h4>
+                            <div class="beginner-formula-main">R' F R' B2 R F' R' B2 R2</div>
+                            <div class="beginner-variants">
+                                <span>Đổi cạnh: R U' R U R U R U' R' U' R2</span>
+                                <span>Xoay U sau mỗi lần nếu còn lệch cạnh</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <a class="to-top" href="#main" aria-label="Lên đầu trang">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <script src="./js/shared.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

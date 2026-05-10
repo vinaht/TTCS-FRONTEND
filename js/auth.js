@@ -1,5 +1,6 @@
 (function () {
-    const API_BASE_URL = window.CUBEAL_API_BASE_URL || "http://localhost:5000/api";
+    const shared = window.CubeALShared;
+    const API_BASE_URL = shared.API_BASE_URL;
     const STORAGE_KEY = "cubeal.auth";
 
     let session = loadSession();
@@ -59,7 +60,9 @@
             requestInit.headers.Authorization = `${session.tokenType || "Bearer"} ${session.token}`;
         }
 
-        if (options.body !== undefined) {
+        if (options.body instanceof FormData) {
+            requestInit.body = options.body;
+        } else if (options.body !== undefined) {
             requestInit.headers["Content-Type"] = "application/json";
             requestInit.body = JSON.stringify(options.body);
         }
@@ -116,29 +119,8 @@
         return currentUser;
     }
 
-    function getRedirectUrl() {
-        const params = new URLSearchParams(window.location.search);
-        const next = params.get("next");
-
-        if (next && !next.startsWith("http")) {
-            return next;
-        }
-
-        return "./timer.html";
-    }
-
     function setMessage(element, text, type) {
-        if (!element) {
-            return;
-        }
-
-        element.hidden = !text;
-        element.textContent = text || "";
-        element.classList.remove("is-error", "is-success");
-
-        if (type) {
-            element.classList.add(type === "error" ? "is-error" : "is-success");
-        }
+        shared.setStatus(element, text, type);
     }
 
     function renderAuthNav() {
@@ -150,14 +132,19 @@
             }
 
             if (currentUser) {
+                const username = shared.escapeHtml(currentUser.username);
+                const adminLink = currentUser.role === "admin"
+                    ? '<a class="header-link" href="./admin.html">Admin</a>'
+                    : "";
                 nav.innerHTML = `
-                    <span class="auth-user">${currentUser.username}</span>
-                    <button class="header-btn" type="button" data-auth-logout>Dang xuat</button>
+                    <a class="auth-user" href="./user.html" title="${username}">${username}</a>
+                    ${adminLink}
+                    <button class="header-btn" type="button" data-auth-logout>Đăng xuất</button>
                 `;
             } else {
                 nav.innerHTML = `
-                    <a class="header-link" href="./login.html">Dang nhap</a>
-                    <a class="header-btn" href="./register.html">Dang ky</a>
+                    <a class="header-link" href="./login.html">Đăng nhập</a>
+                    <a class="header-btn" href="./register.html">Đăng ký</a>
                 `;
             }
         });
@@ -190,7 +177,7 @@
                 remember: formData.get("remember") === "on"
             };
 
-            setMessage(messageElement, "Dang dang nhap...", "success");
+            setMessage(messageElement, "Đang đăng nhập...", "success");
 
             try {
                 const response = await apiFetch("/auth/login", {
@@ -199,9 +186,9 @@
                 });
 
                 saveSession(response.data);
-                setMessage(messageElement, "Dang nhap thanh cong. Dang chuyen trang...", "success");
+                setMessage(messageElement, "Đăng nhập thành công. Đang chuyển trang...", "success");
                 renderAuthNav();
-                window.location.href = getRedirectUrl();
+                window.location.href = "./index.html";
             } catch (error) {
                 setMessage(messageElement, error.message, "error");
             }
@@ -225,7 +212,7 @@
             const confirmPassword = String(formData.get("confirmPassword") || "");
 
             if (password !== confirmPassword) {
-                setMessage(messageElement, "Mat khau xac nhan khong khop.", "error");
+                setMessage(messageElement, "Confirm password does not match.", "error");
                 return;
             }
 
@@ -235,7 +222,7 @@
                 password
             };
 
-            setMessage(messageElement, "Dang tao tai khoan...", "success");
+            setMessage(messageElement, "Đang tạo tài khoản...", "success");
 
             try {
                 const response = await apiFetch("/auth/register", {
@@ -244,9 +231,9 @@
                 });
 
                 saveSession(response.data);
-                setMessage(messageElement, "Dang ky thanh cong. Dang chuyen trang...", "success");
+                setMessage(messageElement, "Đăng ký thành công. Đang chuyển trang...", "success");
                 renderAuthNav();
-                window.location.href = getRedirectUrl();
+                window.location.href = "./index.html";
             } catch (error) {
                 setMessage(messageElement, error.message, "error");
             }

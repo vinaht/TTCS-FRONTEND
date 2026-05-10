@@ -123,6 +123,11 @@ input{
     white-space: nowrap;
     color: #2563eb;
     font-weight: 600;
+    text-decoration: none;
+}
+
+#main #header .header-actions .auth-user:hover{
+    color: #1d4ed8;
 }
 
 #main #header .sr-only{

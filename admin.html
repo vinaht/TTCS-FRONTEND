@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin công thức | CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body class="admin-page">
+    <div id="main">
+        <header id="header">
+            <div class="header-brand">
+                <a class="fa-solid fa-house" href="./index.html"></a>
+                <div class="brand-text">
+                    <h1>CubeAL</h1>
+                </div>
+            </div>
+
+            <form class="header-search" role="search" id="admin-search-form">
+                <label class="sr-only" for="admin-search">Tìm kiếm công thức</label>
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input
+                    id="admin-search"
+                    class="search-input"
+                    type="search"
+                    name="search"
+                    placeholder="Tìm theo tên, mã case, công thức..."
+                >
+            </form>
+
+            <nav class="header-actions" data-auth-nav aria-label="Tài khoản">
+                <a class="header-link" href="./login.html">Đăng nhập</a>
+                <a class="header-btn" href="./register.html">Đăng ký</a>
+            </nav>
+        </header>
+
+        <aside id="sidebar">
+            <nav class="sidebar-menu" aria-label="Điều hướng chính">
+                <a class="sidebar-item" href="./index.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a class="sidebar-item" href="./beginner.html">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>Beginner</span>
+                </a>
+
+                <a class="sidebar-item" href="./cfop.html">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>CFOP</span>
+                </a>
+
+                <a class="sidebar-item" href="./notations.html">
+                    <i class="fa-solid fa-signs-post"></i>
+                    <span>Kí hiệu</span>
+                </a>
+
+                <a class="sidebar-item sidebar-item--active" href="./admin.html">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>Admin</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main id="container">
+            <div class="admin-wrap">
+                <section class="admin-top">
+                    <div>
+                        <p class="admin-kicker">Quản trị</p>
+                        <h2>Quản trị CubeAL</h2>
+                    </div>
+                    <p class="admin-status" id="admin-page-status">Đang kiểm tra quyền truy cập...</p>
+                </section>
+
+                <div class="admin-workspace" id="admin-workspace" hidden>
+                    <section class="admin-overview" aria-label="Tổng quan quản trị">
+                        <article class="metric-card">
+                            <span class="metric-label">Tổng người dùng</span>
+                            <strong id="metric-total-users">0</strong>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-label">Đang hoạt động</span>
+                            <strong id="metric-active-users">0</strong>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-label">Không hoạt động</span>
+                            <strong id="metric-inactive-users">0</strong>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-label">Công thức</span>
+                            <strong id="metric-total-algorithms">0</strong>
+                        </article>
+                    </section>
+
+                    <section class="admin-grid">
+                        <form class="admin-form" id="algorithm-form" novalidate>
+                        <input type="hidden" id="algorithm-id" name="id">
+                        <input type="hidden" id="algorithm-course" name="course" value="cfop">
+                        <input type="hidden" id="algorithm-image-url" name="imageUrl">
+
+                        <div class="form-head">
+                            <h3 id="form-title">Thêm công thức</h3>
+                            <button class="secondary-action" type="button" id="algorithm-reset">
+                                <i class="fa-solid fa-rotate-left"></i>
+                                Mới
+                            </button>
+                        </div>
+
+                        <div class="form-row">
+                            <label>
+                                <span>Phần</span>
+                                <select id="algorithm-stage" name="stage" required></select>
+                            </label>
+                        </div>
+
+                        <div class="form-pair">
+                            <label>
+                                <span>Nhóm</span>
+                                <input id="algorithm-category" name="category" type="text" maxlength="50" required placeholder="OLL, PLL, F2L...">
+                            </label>
+                            <label>
+                                <span>Mã case</span>
+                                <input id="algorithm-case" name="caseCode" type="text" maxlength="50" required placeholder="27, Ua, T...">
+                            </label>
+                        </div>
+
+                        <div class="form-row">
+                            <label>
+                                <span>Tên công thức</span>
+                                <input id="algorithm-name" name="name" type="text" maxlength="120" required>
+                            </label>
+                        </div>
+
+                        <div class="form-row">
+                            <label>
+                                <span>Công thức</span>
+                                <textarea id="algorithm-formula" name="formula" rows="3" maxlength="500" required></textarea>
+                            </label>
+                        </div>
+
+                        <div class="form-row">
+                            <label>
+                                <span>Mô tả</span>
+                                <textarea id="algorithm-description" name="description" rows="3" maxlength="2000"></textarea>
+                            </label>
+                        </div>
+
+                        <div class="form-row">
+                            <label>
+                                <span>Upload ảnh</span>
+                                <input id="algorithm-image" name="image" type="file" accept="image/jpeg,image/png,image/webp">
+                            </label>
+                            <div class="image-preview" id="image-preview" hidden>
+                                <img id="image-preview-img" alt="Ảnh công thức">
+                                <button class="icon-action is-danger" type="button" id="algorithm-remove-image" aria-label="Xóa ảnh">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <label>
+                                <span>Video URL</span>
+                                <input id="algorithm-video" name="videoUrl" type="url" maxlength="500" placeholder="https://www.youtube.com/watch?v=...">
+                            </label>
+                        </div>
+
+                        <div class="form-pair">
+                            <label>
+                                <span>Bắt đầu tại</span>
+                                <input id="algorithm-video-start" name="videoStartSeconds" type="text" maxlength="12" placeholder="1:23">
+                            </label>
+                            <label>
+                                <span>Kết thúc tại</span>
+                                <input id="algorithm-video-end" name="videoEndSeconds" type="text" maxlength="12" placeholder="1:57">
+                            </label>
+                        </div>
+
+                        <div class="form-pair">
+                            <label>
+                                <span>Độ khó</span>
+                                <select id="algorithm-difficulty" name="difficulty">
+                                   
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>Thứ tự</span>
+                                <input id="algorithm-sort" name="sortOrder" type="number" step="1" value="0">
+                            </label>
+                        </div>
+
+                        <label class="check-row">
+                            <input id="algorithm-active" name="isActive" type="checkbox" checked>
+                            <span>Hiển thị công thức</span>
+                        </label>
+
+                        <p class="admin-status" id="algorithm-form-status" hidden></p>
+
+                        <div class="form-actions">
+                            <button class="primary-action" type="submit" id="algorithm-submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                Lưu công thức
+                            </button>
+                        </div>
+                    </form>
+
+                    <section class="algorithm-panel">
+                        <form class="algorithm-filter" id="algorithm-filter">
+                            <select id="filter-stage" name="stage">
+                                <option value="">Tất cả phần CFOP</option>
+                            </select>
+                            <button class="icon-action" type="submit" aria-label="Lọc">
+                                <i class="fa-solid fa-filter"></i>
+                            </button>
+                        </form>
+
+                        <p class="admin-status" id="algorithm-list-status">Đang tải công thức...</p>
+                        <div class="algorithm-list" id="algorithm-list"></div>
+                    </section>
+
+                    </section>
+
+                    <section class="user-panel" aria-labelledby="active-users-title">
+                        <div class="section-head">
+                            <div>
+                                <p class="admin-kicker">Người dùng</p>
+                                <h3 id="active-users-title">Đang hoạt động</h3>
+                            </div>
+                            <form class="user-filter" id="active-user-search-form" role="search">
+                                <label class="sr-only" for="active-user-search">Tìm người dùng hoạt động</label>
+                                <input
+                                    id="active-user-search"
+                                    type="search"
+                                    name="search"
+                                    placeholder="Tìm theo tên hoặc email"
+                                >
+                                <button class="icon-action" type="submit" aria-label="Tìm người dùng">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <form class="user-editor" id="user-editor" hidden novalidate>
+                            <input id="edit-user-id" type="hidden">
+                            <label>
+                                <span>Tên người dùng</span>
+                                <input id="edit-user-username" type="text" maxlength="50" required>
+                            </label>
+                            <label>
+                                <span>Email</span>
+                                <input id="edit-user-email" type="email" maxlength="191" required>
+                            </label>
+                            <label>
+                                <span>Vai trò</span>
+                                <select id="edit-user-role">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </label>
+                            <div class="user-editor-actions">
+                                <button class="primary-action" type="submit">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    Lưu
+                                </button>
+                                <button class="secondary-action" type="button" id="edit-user-cancel">
+                                    Huỷ
+                                </button>
+                            </div>
+                            <p class="admin-status" id="user-editor-status" hidden></p>
+                        </form>
+                        <p class="admin-status" id="active-user-status">Đang tải người dùng hoạt động...</p>
+                        <div class="user-list" id="active-user-list"></div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="./js/shared.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFOP | CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/algorithms.css">
+</head>
+<body class="algorithm-page" data-course="cfop">
+    <div id="main">
+        <header id="header">
+            <div class="header-brand">
+                <a class="fa-solid fa-house" href="./index.html"></a>
+                <div class="brand-text">
+                    <h1>CubeAL</h1>
+                </div>
+            </div>
+
+            <form class="header-search" id="course-search-form" role="search">
+                <label class="sr-only" for="course-search">Tìm kiếm công thức CFOP</label>
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input
+                    id="course-search"
+                    class="search-input"
+                    type="search"
+                    name="search"
+                    placeholder="Tìm kiếm công thức, case, bài học..."
+                >
+            </form>
+
+            <nav class="header-actions" data-auth-nav aria-label="Tài khoản">
+                <a class="header-link" href="./login.html">Đăng nhập</a>
+                <a class="header-btn" href="./register.html">Đăng ký</a>
+            </nav>
+        </header>
+
+        <aside id="sidebar">
+            <nav class="sidebar-menu" aria-label="Điều hướng chính">
+                <a class="sidebar-item" href="./index.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a class="sidebar-item" href="./beginner.html">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>Beginner</span>
+                </a>
+
+                <a class="sidebar-item sidebar-item--active" href="./cfop.html">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>CFOP</span>
+                </a>
+
+                <a class="sidebar-item" href="./notations.html">
+                    <i class="fa-solid fa-signs-post"></i>
+                    <span>Kí hiệu</span>
+                </a>
+
+                <a class="sidebar-item" href="./timer.html">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <span>Timer</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main id="container">
+            <div class="course-wrap">
+                <section class="course-top">
+                    <div>
+                        <p class="course-kicker">Khóa CFOP</p>
+                        <h2>Công thức CFOP</h2>
+                    </div>
+                    <div class="course-overview" aria-label="Thống kê CFOP">
+                        <span><strong id="stage-count">0</strong> cases</span>
+                        <span><strong id="media-count">0</strong> media</span>
+                    </div>
+                </section>
+
+                <div class="course-tabs" id="course-tabs" role="tablist" aria-label="Phần CFOP"></div>
+
+                <section class="course-controls" aria-label="Bộ lọc công thức">
+                    <div>
+                        <p class="course-kicker" id="stage-kicker">CFOP</p>
+                        <h3 id="stage-title">Cross</h3>
+                    </div>
+
+                    <form class="course-filter" id="course-filter">
+                        <label>
+                            <span>Nhóm</span>
+                            <select id="category-filter" name="category">
+                                <option value="">Tất cả</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Độ khó</span>
+                            <select id="difficulty-filter" name="difficulty">
+                                <option value="">Tất cả</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Media</span>
+                            <select id="media-filter" name="media">
+                                <option value="">Tất cả</option>
+                                <option value="image">Có ảnh</option>
+                                <option value="video">Có video</option>
+                                <option value="both">Ảnh và video</option>
+                            </select>
+                        </label>
+                        <button class="course-clear" id="filter-clear" type="button">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Xóa lọc
+                        </button>
+                    </form>
+                </section>
+
+                <p class="course-status" id="course-status">Đang tải công thức...</p>
+                <section class="algorithm-grid" id="algorithm-grid" aria-label="Danh sách công thức CFOP"></section>
+            </div>
+        </main>
+    </div>
+
+    <div class="course-modal" id="algorithm-modal" hidden>
+        <div class="course-modal-backdrop" data-close-detail></div>
+        <section class="course-dialog" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+            <button class="detail-close" type="button" data-close-detail aria-label="Đóng">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="detail-media" id="detail-media"></div>
+            <div class="detail-body">
+                <p class="course-kicker" id="detail-kicker">CFOP</p>
+                <h3 id="detail-title"></h3>
+                <div class="course-meta" id="detail-meta"></div>
+                <p class="course-formula" id="detail-formula"></p>
+                <div id="detail-video"></div>
+                <p class="course-description" id="detail-description"></p>
+            </div>
+        </section>
+    </div>
+
+    <script src="./js/shared.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/algorithms.js"></script>
+</body>
+</html>

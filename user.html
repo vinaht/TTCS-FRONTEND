@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Người dùng | CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body class="user-page">
+    <div id="main">
+        <header id="header">
+            <div class="header-brand">
+                <a class="fa-solid fa-house" href="./index.html"></a>
+                <div class="brand-text">
+                    <h1>CubeAL</h1>
+                </div>
+            </div>
+
+            <form class="header-search" role="search">
+                <label class="sr-only" for="user-search">Tìm kiếm thông tin người dùng</label>
+                <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                <input
+                    id="user-search"
+                    class="search-input"
+                    type="search"
+                    name="search"
+                    placeholder="Tìm kiếm solve, scramble, công thức..."
+                >
+            </form>
+
+            <nav class="header-actions" data-auth-nav aria-label="Tài khoản">
+                <a class="header-link" href="./login.html">Đăng nhập</a>
+                <a class="header-btn" href="./register.html">Đăng ký</a>
+            </nav>
+        </header>
+
+        <aside id="sidebar">
+            <nav class="sidebar-menu" aria-label="Điều hướng chính">
+                <a class="sidebar-item" href="./index.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a class="sidebar-item" href="./notations.html">
+                    <i class="fa-solid fa-signs-post"></i>
+                    <span>Kí hiệu</span>
+                </a>
+
+                <a class="sidebar-item" href="./timer.html">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <span>Timer</span>
+                </a>
+
+                <a class="sidebar-item sidebar-item--active" href="./user.html">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Người dùng</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main id="container">
+            <div class="user-wrap">
+                <section class="user-top">
+                    <div>
+                        <p class="user-kicker">Tài khoản</p>
+                        <h2 id="user-title">Người dùng CubeAL</h2>
+                    </div>
+                    <div class="user-summary" aria-label="Tóm tắt tài khoản">
+                        <span><i class="fa-solid fa-clock"></i> <strong id="solve-count">0</strong> solves</span>
+                        <span><i class="fa-solid fa-bookmark"></i> <strong id="formula-count">0</strong> công thức</span>
+                    </div>
+                </section>
+
+                <div class="user-tabs" role="tablist" aria-label="Khu vực người dùng">
+                    <button class="user-tab is-active" type="button" role="tab" aria-selected="true" data-user-tab="solves">
+                        <i class="fa-solid fa-list"></i>
+                        Lịch sử giải
+                    </button>
+                    <button class="user-tab" type="button" role="tab" aria-selected="false" data-user-tab="formulas">
+                        <i class="fa-solid fa-cube"></i>
+                        Công thức của tôi
+                    </button>
+                    <button class="user-tab" type="button" role="tab" aria-selected="false" data-user-tab="security">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Bảo mật
+                    </button>
+                </div>
+
+                <section class="user-panel is-active" data-user-panel="solves">
+                    <div class="panel-head">
+                        <div>
+                            <h3>Lịch sử giải</h3>
+                            <p>Danh sách giải gần nhất hiện tại.</p>
+                        </div>
+                    </div>
+
+                    <p class="user-status" id="solve-status">Đang tải lịch sử giải...</p>
+
+                    <div class="solve-table-wrap" id="solve-table-wrap" hidden>
+                        <table class="solve-table">
+                            <thead>
+                                <tr>
+                                    <th>Thời gian</th>
+                                    <th>Scramble</th>
+                                    <th>Ghi chú</th>
+                                    <th>Ngày tạo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="solve-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="user-panel" data-user-panel="formulas" hidden>
+                    <div class="panel-head">
+                        <div>
+                            <h3>Công thức của tôi</h3>
+                            <p>Tạo và quản lý công thức của riêng bạn.</p>
+                        </div>
+                    </div>
+
+                    <div class="formula-grid">
+                        <form class="formula-form" id="formula-form" novalidate>
+                            <input type="hidden" name="id" id="formula-id">
+
+                            <div class="form-row">
+                                <label>
+                                    <span>Tên công thức</span>
+                                    <input type="text" name="name" id="formula-name" maxlength="120" required>
+                                </label>
+                            </div>
+
+                            <div class="form-pair">
+                                <label>
+                                    <span>Nhóm</span>
+                                    <input type="text" name="category" id="formula-category" maxlength="50" placeholder="OLL, PLL, F2L...">
+                                </label>
+                                <label>
+                                    <span>Mã case</span>
+                                    <input type="text" name="caseCode" id="formula-case" maxlength="50" placeholder="27, Ua, T...">
+                                </label>
+                            </div>
+
+                            <div class="form-row">
+                                <label>
+                                    <span>Công thức</span>
+                                    <textarea name="formula" id="formula-value" rows="3" maxlength="500" required></textarea>
+                                </label>
+                            </div>
+
+                            <div class="form-row">
+                                <label>
+                                    <span>Ghi chú</span>
+                                    <textarea name="notes" id="formula-notes" rows="3" maxlength="500"></textarea>
+                                </label>
+                            </div>
+
+                            <p class="user-status" id="formula-form-status" hidden></p>
+
+                            <div class="form-actions">
+                                <button class="primary-action" type="submit" id="formula-submit">Lưu công thức</button>
+                                <button class="secondary-action" type="button" id="formula-add-cancel">Huỷ</button>
+                                <button class="secondary-action" type="button" id="formula-edit-cancel" hidden>Huỷ</button>
+                            </div>
+                        </form>
+
+                        <section class="formula-list-panel" aria-label="Danh sách công thức cá nhân">
+                            <form class="formula-filter" id="formula-filter" role="search">
+                                <label class="sr-only" for="formula-search">Tìm kiếm công thức</label>
+                                <input id="formula-search" type="search" name="search" placeholder="Tìm theo tên, nhóm, mã case, công thức...">
+
+                                <label class="sr-only" for="formula-filter-category">Lọc nhóm</label>
+                                <input id="formula-filter-category" type="text" name="category" placeholder="Nhóm">
+
+                                <button class="icon-action" type="submit" aria-label="Tìm kiếm">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                                <button class="icon-action" type="button" id="formula-filter-clear" aria-label="Xóa bộ lọc">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                </button>
+                            </form>
+
+                            <p class="user-status" id="formula-status">Đang tải công thức...</p>
+                            <div class="formula-list" id="formula-list"></div>
+                        </section>
+                    </div>
+                </section>
+
+                <section class="user-panel" data-user-panel="security" hidden>
+                    <div class="panel-head">
+                        <div>
+                            <h3>Bảo mật</h3>
+                            <p>Đổi mật khẩu tài khoản của bạn.</p>
+                        </div>
+                    </div>
+
+                    <form class="password-form" id="password-form" novalidate>
+                        <div class="form-row">
+                            <label>
+                                <span>Mật khẩu hiện tại</span>
+                                <input type="password" name="currentPassword" id="current-password" minlength="6" autocomplete="current-password" required>
+                            </label>
+                        </div>
+
+                        <div class="form-pair">
+                            <label>
+                                <span>Mật khẩu mới</span>
+                                <input type="password" name="newPassword" id="new-password" minlength="6" autocomplete="new-password" required>
+                            </label>
+                            <label>
+                                <span>Xác nhận mật khẩu mới</span>
+                                <input type="password" name="confirmPassword" id="confirm-password" minlength="6" autocomplete="new-password" required>
+                            </label>
+                        </div>
+
+                        <p class="user-status" id="password-status" hidden></p>
+
+                        <div class="form-actions">
+                            <button class="primary-action" type="submit" id="password-submit">Đổi mật khẩu</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div class="formula-delete-modal" id="formula-delete-modal" role="dialog" aria-modal="true" aria-labelledby="formula-delete-title" aria-describedby="formula-delete-description" hidden>
+        <div class="formula-delete-backdrop" data-delete-modal-close></div>
+        <section class="formula-delete-dialog">
+            <div class="formula-delete-icon" aria-hidden="true">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h3 id="formula-delete-title">Xóa công thức?</h3>
+                <p id="formula-delete-description">
+                    Công thức <strong id="formula-delete-name"></strong> sẽ bị xóa khỏi danh sách của bạn.
+                </p>
+            </div>
+            <div class="formula-delete-actions">
+                <button class="secondary-action" type="button" id="formula-delete-cancel">Huỷ</button>
+                <button class="danger-action" type="button" id="formula-delete-confirm">
+                    <i class="fa-solid fa-trash"></i>
+                    Xóa
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script src="./js/shared.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/user.js"></script>
+</body>
+</html>

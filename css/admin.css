@@ -1,5 +1,18 @@
 body.admin-page{
     background: #f5f7fb;
+    --admin-surface: #ffffff;
+    --admin-surface-soft: #f8fbff;
+    --admin-border: #dbe4f0;
+    --admin-border-strong: #bfd3ea;
+    --admin-text: #0f172a;
+    --admin-text-muted: #516074;
+    --admin-primary: #2563eb;
+    --admin-primary-soft: #eaf2ff;
+    --admin-shadow-soft: 0 14px 36px rgba(15, 23, 42, 0.06);
+}
+
+body.has-formula-delete-modal{
+    overflow: hidden;
 }
 
 body.admin-page #container{
@@ -54,6 +67,33 @@ body.admin-page .sr-only{
     gap: 18px;
 }
 
+.admin-subnav{
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-subnav-link{
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid #dbeafe;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.admin-subnav-link.is-active{
+    border-color: #2563eb;
+    background: #2563eb;
+    color: #ffffff;
+}
+
 .admin-overview{
     margin-top: 18px;
     display: grid;
@@ -96,9 +136,10 @@ body.admin-page .sr-only{
 .algorithm-panel,
 .user-panel{
     padding: 18px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    background: #ffffff;
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    background: var(--admin-surface);
+    box-shadow: var(--admin-shadow-soft);
 }
 
 .form-head{
@@ -137,7 +178,8 @@ body.admin-page .sr-only{
 .admin-form select,
 .admin-form textarea,
 .algorithm-filter select,
-.user-filter input{
+.user-filter input,
+.user-filter select{
     width: 100%;
     border: 1px solid #d1d5db;
     border-radius: 8px;
@@ -149,7 +191,8 @@ body.admin-page .sr-only{
 .admin-form input,
 .admin-form select,
 .algorithm-filter select,
-.user-filter input{
+.user-filter input,
+.user-filter select{
     min-height: 42px;
     padding: 0 12px;
 }
@@ -165,7 +208,8 @@ body.admin-page .sr-only{
 .admin-form select:focus,
 .admin-form textarea:focus,
 .algorithm-filter select:focus,
-.user-filter input:focus{
+.user-filter input:focus,
+.user-filter select:focus{
     border-color: #2563eb;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
 }
@@ -207,6 +251,7 @@ body.admin-page .sr-only{
 
 .primary-action,
 .secondary-action,
+.danger-action,
 .icon-action,
 .item-action{
     border: none;
@@ -220,7 +265,8 @@ body.admin-page .sr-only{
 }
 
 .primary-action,
-.secondary-action{
+.secondary-action,
+.danger-action{
     min-height: 42px;
     padding: 0 16px;
 }
@@ -233,6 +279,17 @@ body.admin-page .sr-only{
 .secondary-action{
     background: #e5e7eb;
     color: #374151;
+}
+
+.danger-action{
+    gap: 8px;
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.danger-action:disabled{
+    cursor: wait;
+    opacity: 0.7;
 }
 
 .icon-action,
@@ -385,89 +442,99 @@ body.admin-page .sr-only{
 }
 
 .user-filter{
-    width: min(100%, 360px);
+    width: 100%;
     display: grid;
-    grid-template-columns: minmax(160px, 1fr) 42px;
-    gap: 10px;
-}
-
-.user-editor{
-    margin-bottom: 16px;
-    padding: 14px;
-    border: 1px solid #dbeafe;
-    border-radius: 8px;
-    background: #eff6ff;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
-    gap: 12px;
+    grid-template-columns: minmax(280px, 1.8fr) minmax(220px, 0.9fr) auto;
+    gap: 16px;
     align-items: end;
+    padding: 18px;
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+    background:
+        linear-gradient(180deg, rgba(234, 242, 255, 0.9), rgba(248, 251, 255, 0.95));
 }
 
-.user-editor[hidden]{
-    display: none;
-}
-
-.user-editor label{
+.user-filter-field{
     display: grid;
-    gap: 7px;
-    color: #374151;
+    gap: 8px;
+    color: var(--admin-text);
     font-size: 0.9rem;
     font-weight: 700;
 }
 
-.user-editor input,
-.user-editor select{
-    width: 100%;
-    min-height: 42px;
-    padding: 0 12px;
-    border: 1px solid #bfdbfe;
-    border-radius: 8px;
-    background: #ffffff;
-    color: #111827;
-    outline: none;
+.user-filter-field span{
+    color: var(--admin-text-muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
-.user-editor input:focus,
-.user-editor select:focus{
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+.user-filter input,
+.user-filter select{
+    min-height: 48px;
+    border-radius: 12px;
+    border-color: var(--admin-border-strong);
+    background: rgba(255, 255, 255, 0.96);
 }
 
-.user-editor-actions{
+.user-filter input::placeholder{
+    color: #7b8796;
+}
+
+.user-filter-actions{
     display: flex;
-    gap: 8px;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-self: end;
 }
 
-.user-editor .admin-status{
-    grid-column: 1 / -1;
+.user-filter-actions .primary-action,
+.user-filter-actions .secondary-action{
+    min-height: 48px;
+    padding: 0 18px;
+    border-radius: 12px;
+}
+
+.user-filter-actions .secondary-action{
+    background: #eef2f7;
 }
 
 .user-list{
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 16px;
 }
 
 .user-item{
     min-width: 0;
     display: grid;
-    grid-template-columns: 46px minmax(0, 1fr);
-    gap: 12px;
-    padding: 14px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    background: #fbfdff;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--admin-border);
+    border-radius: 14px;
+    background:
+        linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.user-item:hover{
+    transform: translateY(-2px);
+    border-color: var(--admin-border-strong);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
 }
 
 .user-avatar{
-    width: 46px;
-    height: 46px;
-    border-radius: 8px;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #ecfdf5;
+    background: linear-gradient(135deg, #ecfdf5, #dff7ef);
     color: #047857;
+    font-size: 1.45rem;
     font-weight: 800;
     text-transform: uppercase;
 }
@@ -477,9 +544,10 @@ body.admin-page .sr-only{
 }
 
 .user-main h4{
-    color: #111827;
-    font-size: 1rem;
+    color: var(--admin-text);
+    font-size: 1.12rem;
     line-height: 1.3;
+    font-weight: 800;
     overflow-wrap: anywhere;
 }
 
@@ -491,29 +559,125 @@ body.admin-page .sr-only{
 }
 
 .user-email{
-    margin-top: 4px;
-    color: #4b5563;
-    font-size: 0.9rem;
+    margin-top: 6px;
+    color: var(--admin-text-muted);
+    font-size: 0.98rem;
     overflow-wrap: anywhere;
 }
 
 .user-meta{
-    margin-top: 10px;
+    margin-top: 14px;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
 }
 
 .user-meta span{
-    min-height: 26px;
+    min-height: 30px;
     display: inline-flex;
     align-items: center;
-    padding: 0 9px;
-    border-radius: 8px;
-    background: #f3f4f6;
-    color: #4b5563;
-    font-size: 0.78rem;
+    padding: 0 12px;
+    border: 1px solid #edf2f8;
+    border-radius: 999px;
+    background: #f7f9fc;
+    color: #42556d;
+    font-size: 0.82rem;
     font-weight: 700;
+}
+
+.user-reminder{
+    margin-top: 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.user-reminder-note{
+    flex: 1 1 220px;
+    color: var(--admin-text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.user-reminder-action{
+    min-width: 160px;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 12px;
+}
+
+.user-reminder-action.is-disabled,
+.user-reminder-action:disabled{
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.formula-delete-modal[hidden]{
+    display: none;
+}
+
+.formula-delete-modal{
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.formula-delete-backdrop{
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.48);
+}
+
+.formula-delete-dialog{
+    position: relative;
+    width: min(100%, 430px);
+    display: grid;
+    gap: 16px;
+    padding: 22px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.26);
+}
+
+.formula-delete-icon{
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #fee2e2;
+    color: #b91c1c;
+    font-size: 1.1rem;
+}
+
+.formula-delete-dialog h3{
+    color: #111827;
+    font-size: 1.15rem;
+    line-height: 1.3;
+}
+
+.formula-delete-dialog p{
+    margin-top: 6px;
+    color: #4b5563;
+    line-height: 1.55;
+}
+
+.formula-delete-dialog strong{
+    color: #111827;
+}
+
+.formula-delete-actions{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 1120px){
@@ -521,8 +685,15 @@ body.admin-page .sr-only{
         grid-template-columns: 1fr;
     }
 
+    .user-filter{
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 0.9fr);
+    }
+
+    .user-filter-actions{
+        grid-column: 1 / -1;
+    }
+
     .admin-overview,
-    .user-editor,
     .user-list{
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -544,7 +715,6 @@ body.admin-page .sr-only{
     .algorithm-item,
     .admin-overview,
     .section-head,
-    .user-editor,
     .user-filter,
     .user-list{
         grid-template-columns: 1fr;
@@ -555,6 +725,27 @@ body.admin-page .sr-only{
     }
 
     .user-filter{
+        width: 100%;
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .user-filter-actions{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .user-reminder{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .user-reminder-action{
+        width: 100%;
+    }
+
+    .formula-delete-actions .danger-action,
+    .formula-delete-actions .secondary-action{
         width: 100%;
     }
 }

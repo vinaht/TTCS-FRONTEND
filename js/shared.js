@@ -45,7 +45,8 @@
         "notations.html": "notations",
         "beginner.html": "beginner",
         "cfop.html": "cfop",
-        "admin.html": "admin"
+        "admin.html": "admin",
+        "admin-users.html": "admin"
     };
 
     const courseConfigs = {

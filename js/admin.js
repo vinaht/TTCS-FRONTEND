@@ -41,23 +41,16 @@
         filterStage: document.getElementById("filter-stage"),
         listStatus: document.getElementById("algorithm-list-status"),
         list: document.getElementById("algorithm-list"),
-        activeUserSearchForm: document.getElementById("active-user-search-form"),
-        activeUserSearch: document.getElementById("active-user-search"),
-        activeUserStatus: document.getElementById("active-user-status"),
-        activeUserList: document.getElementById("active-user-list"),
-        userEditor: document.getElementById("user-editor"),
-        editUserId: document.getElementById("edit-user-id"),
-        editUserUsername: document.getElementById("edit-user-username"),
-        editUserEmail: document.getElementById("edit-user-email"),
-        editUserRole: document.getElementById("edit-user-role"),
-        editUserCancel: document.getElementById("edit-user-cancel"),
-        userEditorStatus: document.getElementById("user-editor-status")
+        algorithmDeleteModal: document.getElementById("algorithm-delete-modal"),
+        algorithmDeleteName: document.getElementById("algorithm-delete-name"),
+        algorithmDeleteCancel: document.getElementById("algorithm-delete-cancel"),
+        algorithmDeleteConfirm: document.getElementById("algorithm-delete-confirm")
     };
 
     let algorithms = [];
-    let activeUsers = [];
-    let currentAdminId = null;
     let editingId = null;
+    let pendingDeleteAlgorithmId = null;
+    let pendingDeleteReturnFocus = null;
 
     function setStatus(element, text, type) {
         shared.setStatus(element, text, type);
@@ -114,37 +107,6 @@
         return "";
     }
 
-    function formatDateTime(value) {
-        if (!value) {
-            return "Chưa có dữ liệu";
-        }
-
-        const date = new Date(value);
-
-        if (Number.isNaN(date.getTime())) {
-            return "Chưa có dữ liệu";
-        }
-
-        return new Intl.DateTimeFormat("vi-VN", {
-            dateStyle: "medium",
-            timeStyle: "short"
-        }).format(date);
-    }
-
-    function getActivityLabel(user) {
-        const inactiveDays = Number(user.inactiveDays);
-
-        if (!Number.isFinite(inactiveDays)) {
-            return "Đang hoạt động";
-        }
-
-        if (inactiveDays <= 0) {
-            return "Hôm nay";
-        }
-
-        return `${inactiveDays} ngày trước`;
-    }
-
     function replaceOptions(select, options, includeAllLabel) {
         shared.replaceOptions(select, options, includeAllLabel);
     }
@@ -152,6 +114,7 @@
     function updateStageOptions() {
         elements.course.value = COURSE;
         replaceOptions(elements.stage, stageOptions, null);
+
         if (!elements.stage.value && elements.stage.options.length > 0) {
             elements.stage.value = elements.stage.options[0].value;
         }
@@ -373,31 +336,11 @@
         return items;
     }
 
-    async function fetchAllActiveUsers(baseParams) {
-        const items = [];
-        let page = 1;
-        let totalPages = 1;
-
-        do {
-            const params = new URLSearchParams(baseParams);
-            params.set("page", String(page));
-            params.set("limit", String(PAGE_LIMIT));
-
-            const response = await auth.apiFetch(`/admin/users?${params.toString()}`);
-            const pageItems = response.data?.items || [];
-            items.push(...pageItems);
-            totalPages = response.data?.pagination?.totalPages ??
-                (pageItems.length < PAGE_LIMIT ? page : page + 1);
-            page += 1;
-        } while (page <= totalPages);
-
-        return items;
-    }
-
     async function loadAlgorithms() {
         const params = new URLSearchParams({
             course: COURSE
         });
+
         if (elements.filterStage.value) {
             params.set("stage", elements.filterStage.value);
         }
@@ -409,150 +352,6 @@
             renderAlgorithms();
         } catch (error) {
             setStatus(elements.listStatus, error.message || "Không thể tải công thức.", "error");
-        }
-    }
-
-    function renderActiveUsers() {
-        elements.activeUserList.replaceChildren();
-
-        if (activeUsers.length === 0) {
-            setStatus(elements.activeUserStatus, "Chưa có người dùng hoạt động phù hợp.");
-            return;
-        }
-
-        setStatus(elements.activeUserStatus, "");
-        const fragment = document.createDocumentFragment();
-
-        activeUsers.forEach((user) => {
-            const item = document.createElement("article");
-            item.className = "user-item";
-
-            const avatar = document.createElement("div");
-            avatar.className = "user-avatar";
-            avatar.textContent = (user.username || user.email || "?").trim().slice(0, 1) || "?";
-
-            const main = document.createElement("div");
-            main.className = "user-main";
-
-            const head = document.createElement("div");
-            head.className = "user-head";
-
-            const name = document.createElement("h4");
-            name.textContent = user.username || "Người dùng";
-
-            const editButton = document.createElement("button");
-            editButton.className = "item-action";
-            editButton.type = "button";
-            editButton.dataset.editUser = String(user.id);
-            editButton.setAttribute("aria-label", "Sửa người dùng");
-            editButton.innerHTML = '<i class="fa-solid fa-pen"></i>';
-
-            const email = document.createElement("p");
-            email.className = "user-email";
-            email.textContent = user.email || "Chưa có email";
-
-            const meta = document.createElement("div");
-            meta.className = "user-meta";
-
-            [user.role || "user", getActivityLabel(user), formatDateTime(user.lastActivityAt || user.lastLoginAt)]
-                .filter(Boolean)
-                .forEach((value) => {
-                    const pill = document.createElement("span");
-                    pill.textContent = value;
-                    meta.append(pill);
-                });
-
-            head.append(name, editButton);
-            main.append(head, email, meta);
-            item.append(avatar, main);
-            fragment.append(item);
-        });
-
-        elements.activeUserList.append(fragment);
-    }
-
-    async function loadActiveUsers() {
-        const params = new URLSearchParams({
-            inactive: "false"
-        });
-        const search = elements.activeUserSearch.value.trim();
-
-        if (search) {
-            params.set("search", search);
-        }
-
-        setStatus(elements.activeUserStatus, "Đang tải người dùng hoạt động...");
-
-        try {
-            activeUsers = await fetchAllActiveUsers(params);
-            renderActiveUsers();
-        } catch (error) {
-            setStatus(
-                elements.activeUserStatus,
-                error.message || "Không thể tải người dùng hoạt động.",
-                "error"
-            );
-        }
-    }
-
-    function resetUserEditor() {
-        elements.userEditor.hidden = true;
-        elements.editUserId.value = "";
-        elements.editUserUsername.value = "";
-        elements.editUserEmail.value = "";
-        elements.editUserRole.value = "user";
-        elements.editUserRole.disabled = false;
-        setStatus(elements.userEditorStatus, "");
-    }
-
-    async function startEditUser(userId) {
-        setStatus(elements.userEditorStatus, "Đang tải người dùng...");
-        elements.userEditor.hidden = false;
-
-        try {
-            const response = await auth.apiFetch(`/admin/users/${userId}`);
-            const user = response.data || {};
-
-            elements.editUserId.value = String(user.id || userId);
-            elements.editUserUsername.value = user.username || "";
-            elements.editUserEmail.value = user.email || "";
-            elements.editUserRole.value = user.role || "user";
-            elements.editUserRole.disabled = String(user.id) === String(currentAdminId);
-            setStatus(elements.userEditorStatus, "Đang sửa người dùng.", "success");
-            elements.editUserUsername.focus();
-        } catch (error) {
-            setStatus(elements.userEditorStatus, error.message || "Không thể tải người dùng.", "error");
-        }
-    }
-
-    async function saveUserEdit() {
-        const userId = elements.editUserId.value;
-
-        if (!userId) {
-            return;
-        }
-
-        const payload = {
-            username: elements.editUserUsername.value.trim(),
-            email: elements.editUserEmail.value.trim()
-        };
-
-        if (!elements.editUserRole.disabled) {
-            payload.role = elements.editUserRole.value;
-        }
-
-        setStatus(elements.userEditorStatus, "Đang lưu người dùng...");
-
-        try {
-            await auth.apiFetch(`/admin/users/${userId}`, {
-                method: "PATCH",
-                body: payload
-            });
-
-            setStatus(elements.userEditorStatus, "Đã lưu người dùng.", "success");
-            await Promise.all([loadOverview(), loadActiveUsers()]);
-        } catch (error) {
-            setStatus(elements.userEditorStatus, error.message || "Không thể lưu người dùng.", "error");
         }
     }
 
@@ -588,14 +387,38 @@
         elements.name.focus();
     }
 
-    async function deleteAlgorithm(algorithmId) {
-        const confirmed = window.confirm("Xóa công thức này?");
+    function closeDeleteAlgorithmModal({ restoreFocus = true } = {}) {
+        elements.algorithmDeleteModal.hidden = true;
+        document.body.classList.remove("has-formula-delete-modal");
+        elements.algorithmDeleteConfirm.disabled = false;
+        elements.algorithmDeleteName.textContent = "";
+        pendingDeleteAlgorithmId = null;
 
-        if (!confirmed) {
+        if (restoreFocus && pendingDeleteReturnFocus) {
+            pendingDeleteReturnFocus.focus();
+        }
+
+        pendingDeleteReturnFocus = null;
+    }
+
+    function openDeleteAlgorithmModal(algorithmId, triggerElement) {
+        const algorithm = algorithms.find((item) => String(item.id) === String(algorithmId));
+
+        if (!algorithm) {
             return;
         }
 
+        pendingDeleteAlgorithmId = algorithm.id;
+        pendingDeleteReturnFocus = triggerElement || document.activeElement;
+        elements.algorithmDeleteName.textContent = algorithm.name || "công thức này";
+        elements.algorithmDeleteModal.hidden = false;
+        document.body.classList.add("has-formula-delete-modal");
+        elements.algorithmDeleteConfirm.focus();
+    }
+
+    async function confirmDeleteAlgorithm(algorithmId) {
         setStatus(elements.listStatus, "Đang xóa công thức...");
+        elements.algorithmDeleteConfirm.disabled = true;
 
         try {
             await auth.apiFetch(`/admin/algorithms/${algorithmId}`, {
@@ -608,8 +431,10 @@
 
             await loadAlgorithms();
             setStatus(elements.formStatus, "Đã xóa công thức.", "success");
+            closeDeleteAlgorithmModal({ restoreFocus: false });
         } catch (error) {
             setStatus(elements.listStatus, error.message || "Không thể xóa công thức.", "error");
+            elements.algorithmDeleteConfirm.disabled = false;
         }
     }
 
@@ -638,18 +463,6 @@
             event.preventDefault();
             await loadAlgorithms();
         });
-
-        elements.activeUserSearchForm.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            await loadActiveUsers();
-        });
-
-        elements.userEditor.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            await saveUserEdit();
-        });
-
-        elements.editUserCancel.addEventListener("click", resetUserEditor);
 
         elements.form.addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -685,7 +498,7 @@
             }
         });
 
-        elements.list.addEventListener("click", async (event) => {
+        elements.list.addEventListener("click", (event) => {
             const editButton = event.target.closest("[data-edit-algorithm]");
             const deleteButton = event.target.closest("[data-delete-algorithm]");
 
@@ -695,15 +508,29 @@
             }
 
             if (deleteButton) {
-                await deleteAlgorithm(deleteButton.dataset.deleteAlgorithm);
+                openDeleteAlgorithmModal(deleteButton.dataset.deleteAlgorithm, deleteButton);
             }
         });
 
-        elements.activeUserList.addEventListener("click", async (event) => {
-            const editButton = event.target.closest("[data-edit-user]");
+        elements.algorithmDeleteCancel.addEventListener("click", () => closeDeleteAlgorithmModal());
 
-            if (editButton) {
-                await startEditUser(editButton.dataset.editUser);
+        elements.algorithmDeleteModal.addEventListener("click", (event) => {
+            if (event.target.closest("[data-delete-modal-close]")) {
+                closeDeleteAlgorithmModal();
+            }
+        });
+
+        elements.algorithmDeleteConfirm.addEventListener("click", async () => {
+            if (!pendingDeleteAlgorithmId) {
+                return;
+            }
+
+            await confirmDeleteAlgorithm(pendingDeleteAlgorithmId);
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && !elements.algorithmDeleteModal.hidden) {
+                closeDeleteAlgorithmModal();
             }
         });
     }
@@ -721,13 +548,12 @@
             return;
         }
 
-        currentAdminId = user.id;
         setStatus(elements.pageStatus, "");
         elements.workspace.hidden = false;
         updateStageOptions();
         updateFilterStages();
         bindEvents();
-        await Promise.all([loadOverview(), loadAlgorithms(), loadActiveUsers()]);
+        await Promise.all([loadOverview(), loadAlgorithms()]);
     }
 
     init();

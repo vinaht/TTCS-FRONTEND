@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý người dùng | CubeAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body class="admin-page">
+    <div id="main">
+        <header id="header">
+            <div class="header-brand">
+                <a class="fa-solid fa-house" href="./index.html"></a>
+                <div class="brand-text">
+                    <h1>CubeAL</h1>
+                </div>
+            </div>
+
+            <nav class="header-actions" data-auth-nav aria-label="Tài khoản">
+                <a class="header-link" href="./login.html">Đăng nhập</a>
+                <a class="header-btn" href="./register.html">Đăng ký</a>
+            </nav>
+        </header>
+
+        <aside id="sidebar">
+            <nav class="sidebar-menu" aria-label="Điều hướng chính">
+                <a class="sidebar-item sidebar-item--active" href="./admin.html">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>Admin</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main id="container">
+            <div class="admin-wrap">
+                <section class="admin-top">
+                    <div>
+                        <p class="admin-kicker">Quản trị</p>
+                        <h2>Quản lý người dùng</h2>
+                    </div>
+                    <p class="admin-status" id="admin-page-status">Đang kiểm tra quyền truy cập...</p>
+                </section>
+
+                <div class="admin-workspace" id="admin-workspace" hidden>
+                    <nav class="admin-subnav" aria-label="Điều hướng quản trị">
+                        <a class="admin-subnav-link" href="./admin.html">
+                            <i class="fa-solid fa-cubes"></i>
+                            <span>Công thức</span>
+                        </a>
+                        <a class="admin-subnav-link is-active" href="./admin-users.html" aria-current="page">
+                            <i class="fa-solid fa-users"></i>
+                            <span>Người dùng</span>
+                        </a>
+                    </nav>
+
+                    <section class="admin-overview" aria-label="Tổng quan quản trị">
+                        <article class="metric-card">
+                            <span class="metric-label">Tổng người dùng</span>
+                            <strong id="metric-total-users">0</strong>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-label">Đang hoạt động</span>
+                            <strong id="metric-active-users">0</strong>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-label">Không hoạt động</span>
+                            <strong id="metric-inactive-users">0</strong>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-label">Công thức</span>
+                            <strong id="metric-total-algorithms">0</strong>
+                        </article>
+                    </section>
+
+                    <section class="user-panel" aria-labelledby="user-management-title">
+                        <div class="section-head">
+                            <div>
+                                <p class="admin-kicker">Người dùng</p>
+                                <h3 id="user-management-title">Bộ lọc người dùng</h3>
+                            </div>
+                        </div>
+
+                        <form class="user-filter user-filter--extended" id="user-filter" role="search">
+                            <label class="user-filter-field" for="user-search">
+                                <span>Tìm kiếm</span>
+                                <input id="user-search" type="search" name="search" placeholder="Tên hoặc email">
+                            </label>
+
+                            <label class="user-filter-field" for="user-status">
+                                <span>Trạng thái</span>
+                                <select id="user-status" name="inactive">
+                                    <option value="">Tất cả</option>
+                                    <option value="false">Đang hoạt động</option>
+                                    <option value="true">Không hoạt động</option>
+                                </select>
+                            </label>
+
+                            <div class="user-filter-actions">
+                                <button class="primary-action" type="submit">
+                                    <i class="fa-solid fa-filter"></i>
+                                    Lọc
+                                </button>
+                                <button class="secondary-action" type="button" id="user-filter-clear">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                    Xóa lọc
+                                </button>
+                            </div>
+                        </form>
+
+                        <p class="admin-status" id="user-list-status">Đang tải người dùng...</p>
+                        <div class="user-list" id="user-list"></div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="./js/shared.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/admin-users.js"></script>
+</body>
+</html>

@@ -21,6 +21,9 @@
 
     let users = [];
     let sendingReminderUserId = null;
+    let mailConfigured = true;
+    const SMTP_NOT_CONFIGURED_MESSAGE =
+        "SMTP chua duoc cau hinh. Hay cap nhat SMTP_HOST, SMTP_PORT va SMTP_FROM trong Backend/.env truoc khi gui nhac nho.";
 
     function setStatus(element, text, type) {
         shared.setStatus(element, text, type);
@@ -62,6 +65,10 @@
     }
 
     function getReminderNote(user) {
+        if (!mailConfigured) {
+            return SMTP_NOT_CONFIGURED_MESSAGE;
+        }
+
         if (user.canReceiveReminder) {
             if (user.lastReminderAt) {
                 return `Lan gui gan nhat: ${formatDateTime(user.lastReminderAt)}`;
@@ -77,11 +84,22 @@
         try {
             const response = await auth.apiFetch("/admin");
             const overview = response.data || {};
+            mailConfigured = overview.mailConfigured !== false;
 
             elements.totalUsersMetric.textContent = String(overview.totalUsers ?? 0);
             elements.activeUsersMetric.textContent = String(overview.activeUsers60d ?? 0);
             elements.inactiveUsersMetric.textContent = String(overview.inactiveUsers60d ?? 0);
             elements.totalAlgorithmsMetric.textContent = String(overview.totalAlgorithms ?? 0);
+
+            if (!mailConfigured) {
+                setStatus(elements.pageStatus, SMTP_NOT_CONFIGURED_MESSAGE, "error");
+            } else {
+                setStatus(elements.pageStatus, "");
+            }
+
+            if (users.length > 0) {
+                renderUsers();
+            }
         } catch (error) {
             setStatus(elements.pageStatus, error.message || "Khong the tai tong quan admin.", "error");
         }
@@ -122,6 +140,7 @@
 
         users.forEach((user) => {
             const isSending = String(sendingReminderUserId) === String(user.id);
+            const canSendReminder = mailConfigured && user.canReceiveReminder;
 
             const item = document.createElement("article");
             item.className = "user-item";
@@ -166,17 +185,17 @@
             reminderNote.textContent = getReminderNote(user);
 
             const reminderButton = document.createElement("button");
-            reminderButton.className = user.canReceiveReminder
+            reminderButton.className = canSendReminder
                 ? "primary-action user-reminder-action"
                 : "secondary-action user-reminder-action is-disabled";
             reminderButton.type = "button";
             reminderButton.dataset.remindUser = String(user.id);
-            reminderButton.disabled = !user.canReceiveReminder || isSending;
+            reminderButton.disabled = !canSendReminder || isSending;
             reminderButton.innerHTML = isSending
                 ? '<i class="fa-solid fa-spinner fa-spin"></i> Dang gui'
                 : '<i class="fa-solid fa-paper-plane"></i> Gui nhac nho';
 
-            if (!user.canReceiveReminder) {
+            if (!canSendReminder) {
                 reminderButton.title = getReminderNote(user);
             }
 
@@ -214,6 +233,11 @@
     }
 
     async function sendReminder(userId) {
+        if (!mailConfigured) {
+            setStatus(elements.listStatus, SMTP_NOT_CONFIGURED_MESSAGE, "error");
+            return;
+        }
+
         sendingReminderUserId = userId;
         renderUsers();
         setStatus(elements.listStatus, "Dang gui mail nhac nho...");

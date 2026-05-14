@@ -23,7 +23,7 @@
     let sendingReminderUserId = null;
     let mailConfigured = true;
     const SMTP_NOT_CONFIGURED_MESSAGE =
-        "SMTP chua duoc cau hinh. Hay cap nhat SMTP_HOST, SMTP_PORT va SMTP_FROM trong Backend/.env truoc khi gui nhac nho.";
+        "SMTP chưa được cấu hình. Hãy cập nhật SMTP_HOST, SMTP_PORT và SMTP_FROM trong Backend/.env trước khi gửi nhắc nhở.";
 
     function setStatus(element, text, type) {
         shared.setStatus(element, text, type);
@@ -31,13 +31,13 @@
 
     function formatDateTime(value) {
         if (!value) {
-            return "Chua co du lieu";
+            return "Chưa có dữ liệu";
         }
 
         const date = new Date(value);
 
         if (Number.isNaN(date.getTime())) {
-            return "Chua co du lieu";
+            return "Chưa có dữ liệu";
         }
 
         return new Intl.DateTimeFormat("vi-VN", {
@@ -71,13 +71,13 @@
 
         if (user.canReceiveReminder) {
             if (user.lastReminderAt) {
-                return `Lan gui gan nhat: ${formatDateTime(user.lastReminderAt)}`;
+                return `Lần gửi gần nhất: ${formatDateTime(user.lastReminderAt)}`;
             }
 
-            return "Co the gui nhac nho ngay bay gio.";
+            return "Có thể gửi nhắc nhở ngay bây giờ.";
         }
 
-        return user.reminderBlockedReason || "User nay chua the nhan nhac nho.";
+        return user.reminderBlockedReason || "Người dùng này chưa thể nhận nhắc nhở.";
     }
 
     async function loadOverview() {
@@ -192,8 +192,8 @@
             reminderButton.dataset.remindUser = String(user.id);
             reminderButton.disabled = !canSendReminder || isSending;
             reminderButton.innerHTML = isSending
-                ? '<i class="fa-solid fa-spinner fa-spin"></i> Dang gui'
-                : '<i class="fa-solid fa-paper-plane"></i> Gui nhac nho';
+                ? '<i class="fa-solid fa-spinner fa-spin"></i> Đang gửi'
+                : '<i class="fa-solid fa-paper-plane"></i> Gửi nhắc nhở';
 
             if (!canSendReminder) {
                 reminderButton.title = getReminderNote(user);
@@ -240,13 +240,13 @@
 
         sendingReminderUserId = userId;
         renderUsers();
-        setStatus(elements.listStatus, "Dang gui mail nhac nho...");
+        setStatus(elements.listStatus, "Đang gửi email nhắc nhở...");
 
         try {
             const response = await auth.apiFetch(`/admin/users/${userId}/reminder`, {
                 method: "POST"
             });
-            const successMessage = response.data?.message || "Da gui mail nhac nho.";
+            const successMessage = response.data?.message || "Đã gửi email nhắc nhở.";
 
             sendingReminderUserId = null;
             await loadUsers();
@@ -254,7 +254,7 @@
         } catch (error) {
             sendingReminderUserId = null;
             renderUsers();
-            setStatus(elements.listStatus, error.message || "Khong the gui nhac nho.", "error");
+            setStatus(elements.listStatus, error.message || "Không thể gửi nhắc nhở.", "error");
         }
     }
 

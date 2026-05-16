@@ -24,7 +24,9 @@
         running: false,
         readyToStart: false,
         currentScramble: "",
-        localTimes: []
+        localTimes: [],
+        sessionTimes: [],
+        sessionStatsActive: false
     };
 
     function generateScramble(length = SCRAMBLE_LENGTH) {
@@ -70,6 +72,21 @@
         element.textContent = value === null ? "N/A" : formatTime(value);
     }
 
+    function renderStatsFromTimes(times) {
+        const values = Array.isArray(times) ? times : [];
+        const bestTime = values.length > 0 ? Math.min(...values) : null;
+        const avg5 = values.length >= 5 ? calculateAverage(values.slice(-5)) : null;
+        const avg12 = values.length >= 12 ? calculateAverage(values.slice(-12)) : null;
+
+        setBestTime(bestTime);
+        setAverageDisplay(elements.avg5, avg5);
+        setAverageDisplay(elements.avg12, avg12);
+    }
+
+    function resetDisplayedStats() {
+        renderStatsFromTimes([]);
+    }
+
     function setSyncMessage(message, isError = false) {
         shared.setStatus(elements.syncStatus, message, isError ? "error" : "");
     }
@@ -113,15 +130,8 @@
     }
 
     function updateGuestStats() {
+        renderStatsFromTimes(state.localTimes);
         const bestTime = state.localTimes.length > 0 ? Math.min(...state.localTimes) : null;
-        const avg5 =
-            state.localTimes.length >= 5 ? calculateAverage(state.localTimes.slice(-5)) : null;
-        const avg12 =
-            state.localTimes.length >= 12 ? calculateAverage(state.localTimes.slice(-12)) : null;
-
-        setBestTime(bestTime);
-        setAverageDisplay(elements.avg5, avg5);
-        setAverageDisplay(elements.avg12, avg12);
 
         if (bestTime === null) {
             localStorage.removeItem(GUEST_BEST_STORAGE_KEY);
@@ -175,12 +185,25 @@
         if (auth && auth.isAuthenticated()) {
             try {
                 await saveSolveToServer(Math.round(timeSeconds * 1000));
-                await loadRemoteStats();
+                if (state.sessionStatsActive) {
+                    state.sessionTimes.push(timeSeconds);
+                    renderStatsFromTimes(state.sessionTimes);
+                } else {
+                    await loadRemoteStats();
+                }
             } catch (error) {
                 setSyncMessage("Lưu solve lên server thất bại. Kết quả đã được giữ local.", true);
+                if (state.sessionStatsActive) {
+                    state.sessionTimes.push(timeSeconds);
+                    renderStatsFromTimes(state.sessionTimes);
+                }
+
                 state.localTimes.push(timeSeconds);
                 saveGuestTimes();
-                updateGuestStats();
+
+                if (!state.sessionStatsActive) {
+                    updateGuestStats();
+                }
             }
         } else {
             state.localTimes.push(timeSeconds);
@@ -248,10 +271,15 @@
         setScramble(generateScramble());
 
         if (auth && auth.isAuthenticated()) {
-            loadRemoteStats();
+            state.sessionStatsActive = true;
+            state.sessionTimes = [];
+            resetDisplayedStats();
+            setSyncMessage("");
             return;
         }
 
+        state.sessionStatsActive = false;
+        setSyncMessage("");
         resetGuestStats();
     }
 
@@ -308,10 +336,17 @@
 
         document.addEventListener("cubeal:auth-changed", async () => {
             if (auth && auth.isAuthenticated()) {
+                if (state.sessionStatsActive) {
+                    renderStatsFromTimes(state.sessionTimes);
+                    return;
+                }
+
                 await loadRemoteStats();
                 return;
             }
 
+            state.sessionStatsActive = false;
+            state.sessionTimes = [];
             loadGuestStats();
         });
     }

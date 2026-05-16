@@ -25,7 +25,7 @@ Mac dinh frontend goi API tai `http://localhost:5000/api`. Neu can doi endpoint,
 ## Luong local
 
 - Dang nhap bang admin local sau khi chay seed backend.
-- Vao `admin.html` de xem tong quan, them/sua/xoa cong thuc, xem user dang hoat dong va cap nhat thong tin co ban cua user.
+- Vao `admin.html` de xem tong quan, them/sua/xoa cong thuc va xem user dang hoat dong.
 - Vao `cfop.html` de xem catalog CFOP F2L/OLL/PLL duoc tai tu backend API.
 - Vao `beginner.html` de xem noi dung Beginner khi co du lieu active trong backend.
 - Vao `timer.html` de luu solve vao tai khoan dang dang nhap.
